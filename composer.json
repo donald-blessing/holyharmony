@@ -15,7 +15,8 @@
         "laravel/tinker": "^2.9",
         "spatie/laravel-data": "^4.11",
         "spatie/laravel-medialibrary": "^11.11",
-        "spatie/laravel-sluggable": "^3.7"
+        "spatie/laravel-sluggable": "^3.7",
+        "spatie/laravel-tags": "^4.7"
     },
     "require-dev": {
         "driftingly/rector-laravel": "^2.0",
