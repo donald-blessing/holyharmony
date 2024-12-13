@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Auth;
 
+use App\Actions\LoginUserAction;
+use App\Data\LoginUserData;
+use App\Http\Requests\Traits\CustomFormRequest;
+use App\Rules\UnauthorizedEmailProviders;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-class LoginRequest extends FormRequest
+class LoginRequest extends CustomFormRequest
 {
     /** Determine if the user is authorized to make this request. */
     public function authorize(): bool
@@ -23,12 +25,12 @@ class LoginRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
-            'email'    => ['required', 'string', 'email'],
+            'email'    => ['required', 'string', 'email', new UnauthorizedEmailProviders],
             'password' => ['required', 'string'],
         ];
     }
@@ -38,19 +40,16 @@ class LoginRequest extends FormRequest
      *
      * @throws ValidationException
      */
-    public function authenticate(): void
+    public function authenticate(): bool|array
     {
-        $this->ensureIsNotRateLimited();
+        //        $this->ensureIsNotRateLimited();
 
-        if ( ! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+        //get either username or password
+        $credentials = $this->only('email', 'password');
 
-            throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
-            ]);
-        }
+        //        RateLimiter::clear($this->throttleKey());
 
-        RateLimiter::clear($this->throttleKey());
+        return LoginUserAction::handle(LoginUserData::from($credentials));
     }
 
     /**
