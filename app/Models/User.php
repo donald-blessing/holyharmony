@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Enums\RolesEnum;
 use App\Models\Builders\UserBuilder;
 use Database\Factories\UserFactory;
@@ -45,6 +46,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = [
+        'first_name',
+        'last_name',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -58,12 +64,13 @@ class User extends Authenticatable
         ];
     }
 
+    /** @return HasOne<Profile, $this> */
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class, 'user_id');
     }
 
-    public function newEloquentBuilder($query): UserBuilder
+    public function newEloquentBuilder($query): UserBuilder //@phpstan-ignore-line
     {
         return new UserBuilder($query);
     }
@@ -91,5 +98,29 @@ class User extends Authenticatable
     public function isMember(): bool
     {
         return $this->hasRole(RolesEnum::Member->value);
+    }
+
+    protected function firstName(): Attribute
+    {
+        return Attribute::make(get: function (): string {
+            if ($this->isArtiste() || $this->isMember()) {
+                $arr = explode(' ', $this->name);
+    
+                return $arr[0];
+            }
+            return '';
+        });
+    }
+
+    protected function lastName(): Attribute
+    {
+        return Attribute::make(get: function (): string {
+            if ($this->isArtiste() || $this->isMember()) {
+                $arr = explode(' ', $this->name);
+    
+                return $arr[count($arr) - 1];
+            }
+            return '';
+        });
     }
 }

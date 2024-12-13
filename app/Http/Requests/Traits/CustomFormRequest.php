@@ -13,7 +13,8 @@ class CustomFormRequest extends FormRequest
 {
     use HasApiResponse;
 
-    protected function failedValidation(Validator $validator)
+    /** @throws ValidationException */
+    protected function failedValidation(Validator $validator): void
     {
         throw new ValidationException(
             $validator,

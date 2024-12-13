@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class NewPasswordController extends ApiController
 {
     /**
      * Handle an incoming new password request.
      *
-     * @throws ValidationException
+     * @throws ValidationException|Throwable
      */
     public function store(Request $request): JsonResponse
     {

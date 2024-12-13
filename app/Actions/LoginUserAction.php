@@ -14,12 +14,12 @@ class LoginUserAction
 {
     public static function handle(LoginUserData $data): array|bool
     {
-        $user = User::query()
+        $user = type(User::query()
             ->where('email', $data->email)
             ->orWhere('username', $data->email)
-            ->first();
+            ->first())->as(User::class);
 
-        if ( ! $user || ! Hash::check($data->password, $user->password)) {
+        if ( ! $user || ! Hash::check($data->password, $user->password)) { //@phpstan-ignore-line
             return false;
         }
 

@@ -17,9 +17,12 @@ class UserBuilder extends Builder
     /** Retrieve all users with the specified role. */
     protected function role(string $role): Builder
     {
-        return $this->whereHas('roles', function (\Illuminate\Contracts\Database\Query\Builder $query) use ($role): void {
-            $query->where('name', $role);
-        });
+        return $this->whereHas(
+            'roles',
+            function (\Illuminate\Contracts\Database\Query\Builder $query) use ($role): void {
+                $query->where('name', $role);
+            }
+        );
     }
 
     /** Retrieve all admins. */
@@ -35,33 +38,20 @@ class UserBuilder extends Builder
     }
 
     /** Retrieve all solo acts. */
-    public function soloActs(): Builder
+    public function members(): Builder
     {
-        return $this->role(RolesEnum::SoloAct->value);
+        return $this->role(RolesEnum::Member->value);
     }
 
     /** Retrieve all band or choir members. */
-    public function bandChoirs(): Builder
+    public function artistes(): Builder
     {
-        return $this->role(RolesEnum::BandChoir->value);
+        return $this->role(RolesEnum::Artiste->value);
     }
 
     /** Retrieve all event bookers. */
-    public function eventBookers(): Builder
+    public function ministries(): Builder
     {
-        return $this->role(RolesEnum::EventBooker->value);
-    }
-
-    public function performers(): Builder
-    {
-        return $this->whereHas('roles', function (\Illuminate\Contracts\Database\Query\Builder $query): void {
-            $query->whereIn('name', [RolesEnum::SoloAct->value, RolesEnum::BandChoir->value]);
-        });
-    }
-
-    /** Retrieve all clients. */
-    public function clients(): Builder
-    {
-        return $this->role(RolesEnum::Client->value);
+        return $this->role(RolesEnum::Ministry->value);
     }
 }
