@@ -1,0 +1,50 @@
+includes:
+    #- ./vendor/larastan/larastan/extension.neon
+
+parameters:
+    bladestan:
+        template_paths:
+            # default
+            - resources/views
+    type_coverage:
+        return: 50
+        param: 35.5
+        property: 70
+        constant: 85
+        declare: 40
+
+    paths:
+        - app
+        - database
+        - routes
+
+    # Level 9 is the highest level
+    level: 6
+    inferPrivatePropertyTypeFromConstructor: true
+    checkModelProperties: true
+    treatPhpDocTypesAsCertain: false
+
+    excludePaths:
+        - app/Providers/*
+        - app/View/*
+        - bootstrap/cache/* # Exclude compiled files
+        - storage/* # Exclude storage files
+        - resources/views/* # Exclude view files
+        - database/factories/* # Exclude factory files
+        - database/migrations/* # Exclude migrations files
+        - routes/* # Exclude route files
+
+    ignoreErrors:
+        - '#Syntax error, unexpected T_USE#'
+        -
+            identifier: missingType.iterableValue
+        -
+            identifier: missingType.generics
+        # Ignore dynamic properties (e.g., for accessors)
+        #- '#Access to an undefined property .*::\$.*#'
+        # Ignore dynamic methods (e.g., magic methods or traits)
+        - '#Call to an undefined method .*#'
+        #- '#Out of \d+ possible param types, only \d+ - \d+\.\d+ % actually have it\. Add more param types to get over \d+ %#'
+
+    parallel:
+        maximumNumberOfProcesses: 4
