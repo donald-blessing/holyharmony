@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Api\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\ApiController;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
-class NewPasswordController extends Controller
+class NewPasswordController extends ApiController
 {
     /**
      * Handle an incoming new password request.
      *
-     * @throws ValidationException
+     * @throws ValidationException|Throwable
      */
     public function store(Request $request): JsonResponse
     {

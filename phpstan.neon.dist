@@ -17,8 +17,9 @@ parameters:
     # Level 9 is the highest level
     level: 6
     inferPrivatePropertyTypeFromConstructor: true
-    checkModelProperties: true
     treatPhpDocTypesAsCertain: false
+    checkMissingTypehints: true
+    checkUninitializedProperties: true
 
     excludePaths:
         - app/Providers/*

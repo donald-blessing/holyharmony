@@ -69,11 +69,11 @@ trait UploadAble
         } catch (FileDoesNotExist|FileIsTooBig $e) {
             report($e);
 
-            throw new UploadFileException($e->getMessage());
+            throw new UploadFileException($e->getMessage(), $e->getCode(), $e);
         } catch (Throwable $e) {
             report($e);
 
-            throw new UploadFileException('There was a problem uploading the file!');
+            throw new UploadFileException('There was a problem uploading the file!', $e->getCode(), $e);
         }
     }
 
@@ -87,11 +87,11 @@ trait UploadAble
         } catch (FileDoesNotExist|FileIsTooBig|FileCannotBeAdded $e) {
             report($e);
 
-            throw new UploadFileException($e->getMessage());
+            throw new UploadFileException($e->getMessage(), $e->getCode(), $e);
         } catch (Throwable $e) {
             report($e);
 
-            throw new UploadFileException('There was an error uploading the file from the url');
+            throw new UploadFileException('There was an error uploading the file from the url', $e->getCode(), $e);
         }
     }
 
@@ -138,7 +138,7 @@ trait UploadAble
         } catch (Throwable $e) {
             report($e);
 
-            throw new UploadFileException('There was a problem uploading the media from the base64 media');
+            throw new UploadFileException('There was a problem uploading the media from the base64 media', $e->getCode(), $e);
         }
     }
 
@@ -184,11 +184,11 @@ trait UploadAble
             } catch (FileDoesNotExist|FileIsTooBig $e) {
                 report($e);
 
-                throw new UploadFileException($e->getMessage());
+                throw new UploadFileException($e->getMessage(), $e->getCode(), $e);
             } catch (Throwable $e) {
                 report($e);
 
-                throw new UploadFileException('There was an error attaching the media!');
+                throw new UploadFileException('There was an error attaching the media!', $e->getCode(), $e);
             }
         }
     }
@@ -210,7 +210,7 @@ trait UploadAble
         } catch (Throwable $throwable) {
             report($throwable);
 
-            throw new UploadFileException('An error occurred while trying to delete the file!');
+            throw new UploadFileException('An error occurred while trying to delete the file!', $throwable->getCode(), $throwable);
         }
     }
 }
