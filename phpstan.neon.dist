@@ -2,10 +2,6 @@ includes:
     #- ./vendor/larastan/larastan/extension.neon
 
 parameters:
-    bladestan:
-        template_paths:
-            # default
-            - resources/views
     type_coverage:
         return: 50
         param: 35.5
