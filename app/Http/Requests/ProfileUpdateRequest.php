@@ -8,8 +8,10 @@ use App\Enums\GenderEnum;
 use App\Enums\RolesEnum;
 use App\Http\Requests\Traits\CustomFormRequest;
 use App\Models\Profile;
+use App\Models\User;
 use App\Traits\UserTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class ProfileUpdateRequest extends CustomFormRequest
@@ -19,7 +21,7 @@ class ProfileUpdateRequest extends CustomFormRequest
     /** Determine if the user is authorized to make this request. */
     public function authorize(): bool
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -30,18 +32,19 @@ class ProfileUpdateRequest extends CustomFormRequest
     public function rules(): array
     {
         return [
-            'stage_name' => [
+            'username'                       => ['required', 'string', 'max:255', 'unique:'.User::class],
+            'stage_name'                     => [
                 'nullable',
                 'string',
                 'max:255',
                 Rule::unique(Profile::class)->ignore($this->user()->id, 'user_id'),
             ],
-            'photo' => [
+            'photo'                          => [
                 'nullable',
                 'file',
                 'mimes:jpg,png,jpeg', 'max:2048',
             ],
-            'genre' => [
+            'genre'                          => [
                 'nullable',
                 'array',
             ],
@@ -50,52 +53,56 @@ class ProfileUpdateRequest extends CustomFormRequest
                 'string',
                 'max:255',
             ],
-            'bio' => [
+            'bio'                            => [
                 'nullable',
                 'string',
             ],
-            'phone' => [
+            'phone'                          => [
                 'required',
                 'string',
                 'max:15',
                 Rule::unique(Profile::class)->ignore($this->user()->id, 'user_id'),
             ],
-            'address' => [
+            'address'                        => [
                 'nullable',
                 'array',
             ],
-            'special_skills' => [
+            'special_skills'                 => [
                 'nullable',
                 'array',
             ],
-            'preferred_event_types' => [
+            'preferred_event_types'          => [
                 'nullable',
                 'array',
             ],
-            'social_media' => [
+            'social_media'                   => [
                 'nullable',
                 'array',
             ],
-            'play_instruments' => [
+            'play_instruments'               => [
                 'nullable',
                 'array',
             ],
-            'role' => [
+            'role'                           => [
                 'required',
                 'string',
                 Rule::enum(RolesEnum::class),
             ],
-            'date_of_birth' => ['nullable', 'date'],
-            'gender'        => [
+            'date_of_birth'                  => ['nullable', 'date'],
+            'gender'                         => [
                 'nullable', 'string',
                 Rule::enum(GenderEnum::class),
             ],
         ];
     }
 
-    public function validated($key = null, $default = null)
+    public function validated($key = null, $default = null): array // @phpstan-ignore-line
     {
         $data = parent::validated($key, $default);
+
+        type($this->user())->as(User::class)->update([
+            'username' => $data['username'],
+        ]);
 
         return array_merge($data, ['user_id' => $this->user()->id]);
     }

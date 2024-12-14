@@ -25,6 +25,8 @@ class PostResource extends JsonResource
             'is_downloadable' => $this->is_downloadable,
             'upload'          => $this->upload,
             'user'            => $this->user->only(['id', 'name', 'username', 'email']),
+            'reviews'         => $this->reviews->only(['id', 'body', 'review_id']),
+            'created_at'      => $this->created_at,
         ];
     }
 }

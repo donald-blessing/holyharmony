@@ -34,6 +34,10 @@ class UserResource extends JsonResource
                 'date_of_birth',
                 'gender',
             ]),
+            'post'              => $this->posts->only([
+                'id', 'title', 'description', 'category', 'views', 'downloads', 'is_downloadable', 'upload',
+            ]),
+            'reviews'           => $this->reviews->only(['id', 'body', 'review_id']),
         ];
     }
 }
