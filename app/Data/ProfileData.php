@@ -24,8 +24,8 @@ class ProfileData extends Data
         public ?array $special_skills,
         public ?array $preferred_event_types,
         public ?array $social_media,
-        public ?array $play_instruments,
-        public readonly ?string $role,
+        public ?array $interests,
+        public ?int $ministry_id,
         public readonly ?string $gender,
         public readonly ?string $data_of_birth,
     ) {

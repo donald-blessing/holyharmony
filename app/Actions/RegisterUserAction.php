@@ -15,6 +15,8 @@ class RegisterUserAction
     {
         $user = CreateUserAction::handle($data->toArray());
 
+        AssignRoleAction::handle($user, $data->role);
+
         event(new Registered($user));
 
         return [

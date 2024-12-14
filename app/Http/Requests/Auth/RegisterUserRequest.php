@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Auth;
 
+use App\Enums\RolesEnum;
 use App\Http\Requests\Traits\CustomFormRequest;
 use App\Models\User;
 use App\Rules\UnauthorizedEmailProviders;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class RegisterUserRequest extends CustomFormRequest
@@ -64,6 +66,12 @@ class RegisterUserRequest extends CustomFormRequest
                 new UnauthorizedEmailProviders,
             ],
             'password' => ['required', Password::defaults()],
+
+            'role' => [
+                'required',
+                'string',
+                Rule::enum(RolesEnum::class),
+            ],
         ];
     }
 

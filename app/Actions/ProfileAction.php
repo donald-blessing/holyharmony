@@ -17,10 +17,6 @@ class ProfileAction
     public static function handle(ProfileData $profileData): ProfileResource
     {
         return DB::transaction(function () use ($profileData): ProfileResource {
-            if (isset($profileData->role)) {
-                AssignRoleAction::handle($profileData->user, $profileData->role);
-            }
-
             $data = self::removeEmptyElements($profileData->toArray());
 
             $profile = Profile::query()->updateOrCreate($profileData->only('user_id')->toArray(), $data);

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\Auth\GoogleLoginController;
+use App\Http\Controllers\Api\Interests\InterestsUpdateController;
 use App\Http\Controllers\Api\MinistriesController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\PostDownloadController;
@@ -28,6 +29,7 @@ Route::middleware(['auth:sanctum'])->group(function (): void {
     Route::prefix('profile')->group(function (): void {
         Route::get('/', ProfileController::class);
         Route::put('/update', ProfileUpdateController::class);
+        Route::put('/interests', InterestsUpdateController::class);
         Route::post('/image', ProfileImageUpdateController::class);
     });
 

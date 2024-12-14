@@ -15,8 +15,8 @@ class RolesSeeder extends Seeder
     {
         foreach (RolesEnum::toArray() as $role) {
             Role::create([
-                'name'  => $role,
-                'guard' => 'web',
+                'name'       => $role,
+                'guard_name' => 'web',
             ]);
         }
     }

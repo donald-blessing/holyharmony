@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Enums\GenderEnum;
-use App\Enums\RolesEnum;
 use App\Http\Requests\Traits\CustomFormRequest;
 use App\Models\Profile;
 use App\Models\User;
@@ -79,11 +78,6 @@ class ProfileUpdateRequest extends CustomFormRequest
                 'nullable',
                 'numeric',
                 'exists:users,id',
-            ],
-            'role' => [
-                'required',
-                'string',
-                Rule::enum(RolesEnum::class),
             ],
             'date_of_birth' => ['nullable', 'date'],
             'gender'        => [
