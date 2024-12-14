@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "175817b5f5967dd807f18b3bc9bc7eb2",
+    "content-hash": "1b5994281ec72c3c18bd63be1733f2e3",
     "packages": [
         {
             "name": "amphp/amp",
@@ -5793,6 +5793,82 @@
                 }
             ],
             "time": "2024-12-09T16:19:56+00:00"
+        },
+        {
+            "name": "spatie/laravel-morph-map-generator",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-morph-map-generator.git",
+                "reference": "45615469878a7c0e7d99c3586b57431a5b03e4fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-morph-map-generator/zipball/45615469878a7c0e7d99c3586b57431a5b03e4fe",
+                "reference": "45615469878a7c0e7d99c3586b57431a5b03e4fe",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/console": "^8.0|^9.0|^10.0|^11.0",
+                "illuminate/contracts": "^8.0|^9.0|^10.0|^11.0",
+                "illuminate/database": "^8.0|^9.0|^10.0|^11.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^6.24|^7.0|^8.0|^9.0",
+                "pestphp/pest-plugin-laravel": "^1.3|^2.1",
+                "phpunit/phpunit": "^9.6|^10.5",
+                "spatie/temporary-directory": "^1.2",
+                "vimeo/psalm": "^4.2|^5.20"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\LaravelMorphMapGenerator\\MorphMapGeneratorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelMorphMapGenerator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ruben Van Assche",
+                    "email": "ruben@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Automatically generate morph maps in your Laravel application",
+            "homepage": "https://github.com/spatie/laravel-morph-map-generator",
+            "keywords": [
+                "laravel-morph-map-generator",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-morph-map-generator/issues",
+                "source": "https://github.com/spatie/laravel-morph-map-generator/tree/1.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/spatie",
+                    "type": "github"
+                },
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "other"
+                }
+            ],
+            "time": "2024-11-12T13:30:18+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",

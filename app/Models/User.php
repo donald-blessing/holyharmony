@@ -138,4 +138,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class, 'post_id');
     }
+
+    /** @return HasOne<Like, $this> */
+    public function like(): HasOne
+    {
+        return $this->hasOne(Like::class);
+    }
+
+    /** @return HasMany<Like, $this> */
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
+    }
 }

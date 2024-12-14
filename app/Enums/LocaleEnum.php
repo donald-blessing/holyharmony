@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Enums;
 
 use App\Enums\Traits\EnumsTrait;
-use Filament\Support\Contracts\HasLabel;
 
-enum LocaleEnum: string implements HasLabel
+enum LocaleEnum: string
 {
     use EnumsTrait;
 

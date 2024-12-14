@@ -8,6 +8,8 @@ use App\Enums\RolesEnum;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
+use Spatie\LaravelMorphMapGenerator\MorphMapGenerator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
     /** Bootstrap any application services. */
     public function boot(): void
     {
+        MorphMapGenerator::resolveUsing(fn ($model) => ucfirst((Str::singular($model->getTable()))));
+
         // Implicitly grant "Super Admin" role all permissions
         // This works in the app by using gate-related functions like auth()->user->can() and @can()
         Gate::before(function ($user, $ability) {

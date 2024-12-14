@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 
@@ -66,5 +67,16 @@ class Post extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class, 'post_id');
+    }
+
+    /** @return MorphMany<Like, $this> */
+    public function likes(): MorphMany
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
+
+    public function isLikedByUser(User $user): bool
+    {
+        return $this->likes()->where('user_id', $user->id)->exists();
     }
 }
