@@ -72,7 +72,7 @@ class FileValidationService
             $imageInfo = @getimagesize($file->getRealPath());
 
             return $imageInfo !== false;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             return false;
         }
     }

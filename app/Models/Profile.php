@@ -32,6 +32,7 @@ class Profile extends Model
         'user_id',
         'date_of_birth',
         'gender',
+        'ministry_id',
     ];
 
     protected $primaryKey = 'uuid';
@@ -53,6 +54,7 @@ class Profile extends Model
             'interests'      => JsonCast::class,
             'social_media'   => JsonCast::class,
             'user_id'        => 'integer',
+            'ministry_id'    => 'integer',
         ];
     }
 
@@ -60,5 +62,13 @@ class Profile extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function ministry(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'ministry_id');
     }
 }

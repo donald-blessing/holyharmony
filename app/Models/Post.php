@@ -29,20 +29,13 @@ class Post extends Model
         'upload',
     ];
 
-    protected $casts = [
-        'views'           => 'integer',
-        'downloads'       => 'integer',
-        'is_downloadable' => 'boolean',
-        'upload'          => FileCast::class,
-    ];
-
     public static function trendingByCategory(): AnonymousResourceCollection
     {
         // Get the top category
 
         $posts = self::query()->select('category', DB::raw('SUM(views) as total_views'))
             ->groupBy('category') // Group posts by category
-            ->orderByDesc('total_views') // Order by total views descending
+            ->latest('total_views') // Order by total views descending
             ->get();
 
         return PostResource::collection($posts);
@@ -53,13 +46,28 @@ class Post extends Model
         return new PostBuilder($query);
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * @return HasMany<Review, $this>
+     */
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class, 'post_id');
+    }
+    protected function casts(): array
+    {
+        return [
+            'views'           => 'integer',
+            'downloads'       => 'integer',
+            'is_downloadable' => 'boolean',
+            'upload'          => FileCast::class,
+        ];
     }
 }

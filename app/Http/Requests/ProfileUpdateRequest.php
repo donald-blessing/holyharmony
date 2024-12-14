@@ -48,11 +48,6 @@ class ProfileUpdateRequest extends CustomFormRequest
                 'nullable',
                 'array',
             ],
-            'preferred_performance_location' => [
-                'nullable',
-                'string',
-                'max:255',
-            ],
             'bio' => [
                 'nullable',
                 'string',
@@ -71,17 +66,19 @@ class ProfileUpdateRequest extends CustomFormRequest
                 'nullable',
                 'array',
             ],
-            'preferred_event_types' => [
-                'nullable',
+            'interests' => [
+                'required',
                 'array',
             ],
+
             'social_media' => [
                 'nullable',
                 'array',
             ],
-            'play_instruments' => [
+            'ministry_id' => [
                 'nullable',
-                'array',
+                'numeric',
+                'exists:users,id',
             ],
             'role' => [
                 'required',

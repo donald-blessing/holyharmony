@@ -26,11 +26,11 @@ class ProfileResource extends JsonResource
             'phone'                          => $this->phone,
             'address'                        => $this->address,
             'special_skills'                 => $this->special_skills,
-            'preferred_event_types'          => $this->preferred_event_types,
-            'social_media'                   => $this->social_media,
-            'play_instruments'               => $this->play_instruments,
-            'date_of_birth'                  => $this->date_of_birth,
-            'gender'                         => $this->gender,
+
+            'social_media'     => $this->social_media,
+            'play_instruments' => $this->play_instruments,
+            'date_of_birth'    => $this->date_of_birth,
+            'gender'           => $this->gender,
         ];
     }
 }
