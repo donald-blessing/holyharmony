@@ -39,13 +39,13 @@ use RectorLaravel\Set\LaravelSetList;
 
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__.'/app',
-        __DIR__.'/database',
-        __DIR__.'/routes',
-        __DIR__.'/tests',
+        __DIR__ . '/app',
+        __DIR__ . '/database',
+        __DIR__ . '/routes',
+        __DIR__ . '/tests',
     ])
-    ->withSkipPath(__DIR__.'/app/Providers')
-    ->withSkipPath(__DIR__.'/database/migrations')
+    ->withSkipPath(__DIR__ . '/app/Providers')
+    ->withSkipPath(__DIR__ . '/database/migrations')
     ->withSets([
         LaravelLevelSetList::UP_TO_LARAVEL_110,
         LaravelSetList::LARAVEL_CODE_QUALITY,

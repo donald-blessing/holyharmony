@@ -22,33 +22,25 @@ class Review extends Model
         'review_id',
     ];
 
-    /**
-     * @return BelongsTo<User, $this>
-     */
+    /** @return BelongsTo<User, $this> */
     public function reviewer(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return BelongsTo<Post, $this>
-     */
+    /** @return BelongsTo<Post, $this> */
     public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);
     }
 
-    /**
-     * @return HasMany<\App\Models\Review, $this>
-     */
+    /** @return HasMany<Review, $this> */
     public function replies(): HasMany
     {
         return $this->hasMany(self::class, 'review_id');
     }
 
-    /**
-     * @return BelongsTo<\App\Models\Review, $this>
-     */
+    /** @return BelongsTo<Review, $this> */
     public function review(): BelongsTo
     {
         return $this->belongsTo(self::class, 'review_id');

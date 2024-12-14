@@ -29,6 +29,16 @@ class Post extends Model
         'upload',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'views'           => 'integer',
+            'downloads'       => 'integer',
+            'is_downloadable' => 'boolean',
+            'upload'          => FileCast::class,
+        ];
+    }
+
     public static function trendingByCategory(): AnonymousResourceCollection
     {
         // Get the top category
@@ -46,28 +56,15 @@ class Post extends Model
         return new PostBuilder($query);
     }
 
-    /**
-     * @return BelongsTo<User, $this>
-     */
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return HasMany<Review, $this>
-     */
+    /** @return HasMany<Review, $this> */
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class, 'post_id');
-    }
-    protected function casts(): array
-    {
-        return [
-            'views'           => 'integer',
-            'downloads'       => 'integer',
-            'is_downloadable' => 'boolean',
-            'upload'          => FileCast::class,
-        ];
     }
 }

@@ -64,9 +64,7 @@ class Profile extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return BelongsTo<User, $this>
-     */
+    /** @return BelongsTo<User, $this> */
     public function ministry(): BelongsTo
     {
         return $this->belongsTo(User::class, 'ministry_id');

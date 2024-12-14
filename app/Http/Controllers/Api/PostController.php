@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Actions\CreatePostAction;
 use App\Actions\UpdatePostAction;
 use App\Data\PostData;
-use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;

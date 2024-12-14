@@ -127,17 +127,13 @@ class User extends Authenticatable
         return $this->hasRole(RolesEnum::Member->value);
     }
 
-    /**
-     * @return HasMany<Post, $this>
-     */
+    /** @return HasMany<Post, $this> */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'user_id');
     }
 
-    /**
-     * @return HasMany<Review, $this>
-     */
+    /** @return HasMany<Review, $this> */
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class, 'post_id');

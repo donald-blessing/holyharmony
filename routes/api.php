@@ -3,13 +3,14 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\Auth\GoogleLoginController;
+use App\Http\Controllers\Api\MinistriesController;
+use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\PostDownloadController;
+use App\Http\Controllers\Api\PostsTrendsController;
 use App\Http\Controllers\Api\Profile\ProfileController;
 use App\Http\Controllers\Api\Profile\ProfileImageUpdateController;
 use App\Http\Controllers\Api\Profile\ProfileUpdateController;
 use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\PostDownloadController;
-use App\Http\Controllers\PostsTrendsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,8 @@ Route::middleware(['auth:sanctum'])->group(function (): void {
         Route::put('/update', ProfileUpdateController::class);
         Route::post('/image', ProfileImageUpdateController::class);
     });
+
+    Route::get('ministries', MinistriesController::class);
 
     Route::get('posts/trends', PostsTrendsController::class);
     Route::get('posts/download', PostDownloadController::class);
