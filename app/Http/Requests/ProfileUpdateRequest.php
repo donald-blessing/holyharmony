@@ -32,19 +32,19 @@ class ProfileUpdateRequest extends CustomFormRequest
     public function rules(): array
     {
         return [
-            'username'                       => ['required', 'string', 'max:255', 'unique:'.User::class],
-            'stage_name'                     => [
+            'username'   => ['required', 'string', 'max:255', 'unique:' . User::class],
+            'stage_name' => [
                 'nullable',
                 'string',
                 'max:255',
                 Rule::unique(Profile::class)->ignore($this->user()->id, 'user_id'),
             ],
-            'photo'                          => [
+            'photo' => [
                 'nullable',
                 'file',
                 'mimes:jpg,png,jpeg', 'max:2048',
             ],
-            'genre'                          => [
+            'genre' => [
                 'nullable',
                 'array',
             ],
@@ -53,43 +53,43 @@ class ProfileUpdateRequest extends CustomFormRequest
                 'string',
                 'max:255',
             ],
-            'bio'                            => [
+            'bio' => [
                 'nullable',
                 'string',
             ],
-            'phone'                          => [
+            'phone' => [
                 'required',
                 'string',
                 'max:15',
                 Rule::unique(Profile::class)->ignore($this->user()->id, 'user_id'),
             ],
-            'address'                        => [
+            'address' => [
                 'nullable',
                 'array',
             ],
-            'special_skills'                 => [
+            'special_skills' => [
                 'nullable',
                 'array',
             ],
-            'preferred_event_types'          => [
+            'preferred_event_types' => [
                 'nullable',
                 'array',
             ],
-            'social_media'                   => [
+            'social_media' => [
                 'nullable',
                 'array',
             ],
-            'play_instruments'               => [
+            'play_instruments' => [
                 'nullable',
                 'array',
             ],
-            'role'                           => [
+            'role' => [
                 'required',
                 'string',
                 Rule::enum(RolesEnum::class),
             ],
-            'date_of_birth'                  => ['nullable', 'date'],
-            'gender'                         => [
+            'date_of_birth' => ['nullable', 'date'],
+            'gender'        => [
                 'nullable', 'string',
                 Rule::enum(GenderEnum::class),
             ],

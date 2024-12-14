@@ -34,11 +34,11 @@ class Review extends Model
 
     public function replies(): HasMany
     {
-        return $this->hasMany(Review::class, 'review_id');
+        return $this->hasMany(self::class, 'review_id');
     }
 
     public function review(): BelongsTo
     {
-        return $this->belongsTo(Review::class, 'review_id');
+        return $this->belongsTo(self::class, 'review_id');
     }
 }

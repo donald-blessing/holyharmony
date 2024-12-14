@@ -32,7 +32,7 @@ class RegisterUserRequest extends CustomFormRequest
     public function rules(): array
     {
         return [
-            'name'       => [
+            'name' => [
                 'nullable',
                 'string',
                 'max:255',
@@ -42,7 +42,7 @@ class RegisterUserRequest extends CustomFormRequest
                         $firstNameExists = filled(request('first_name'));
                         $lastNameExists  = filled(request('last_name'));
 
-                        if (!$firstNameExists || !$lastNameExists) {
+                        if ( ! $firstNameExists || ! $lastNameExists) {
                             $fail('Either full name or both first and last names must be provided.');
                         }
                     }
@@ -53,14 +53,14 @@ class RegisterUserRequest extends CustomFormRequest
                 'string',
                 'max:255',
             ],
-            'last_name'  => [
+            'last_name' => [
                 $this->isNameEmpty() ? 'required' : 'nullable',
                 'string',
                 'max:255',
             ],
 
-            'email'    => [
-                'required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class,
+            'email' => [
+                'required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class,
                 new UnauthorizedEmailProviders,
             ],
             'password' => ['required', Password::defaults()],
@@ -72,7 +72,7 @@ class RegisterUserRequest extends CustomFormRequest
         $validated = parent::validated($key, $default);
 
         if (isset($validated['first_name'], $validated['last_name'])) {
-            $validated['name'] = $validated['first_name'].' '.$validated['last_name'];
+            $validated['name'] = $validated['first_name'] . ' ' . $validated['last_name'];
         }
 
         return $validated;
