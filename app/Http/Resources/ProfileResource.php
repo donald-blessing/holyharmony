@@ -17,7 +17,7 @@ class ProfileResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'user'                           => $this->user->only(['uuid', 'name', 'username', 'email']),
+            'user'                           => $this->user->only(['id', 'name', 'username', 'email']),
             'stage_name'                     => $this->stage_name,
             'photo'                          => $this->photo,
             'genre'                          => $this->genre,

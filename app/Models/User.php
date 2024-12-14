@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Enums\RolesEnum;
 use App\Models\Builders\UserBuilder;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -64,6 +65,32 @@ class User extends Authenticatable
         ];
     }
 
+    protected function firstName(): Attribute
+    {
+        return Attribute::make(get: function (): string {
+            if ($this->isArtiste() || $this->isMember()) {
+                $arr = explode(' ', $this->name);
+
+                return $arr[0];
+            }
+
+            return '';
+        });
+    }
+
+    protected function lastName(): Attribute
+    {
+        return Attribute::make(get: function (): string {
+            if ($this->isArtiste() || $this->isMember()) {
+                $arr = explode(' ', $this->name);
+
+                return $arr[count($arr) - 1];
+            }
+
+            return '';
+        });
+    }
+
     /** @return HasOne<Profile, $this> */
     public function profile(): HasOne
     {
@@ -100,27 +127,8 @@ class User extends Authenticatable
         return $this->hasRole(RolesEnum::Member->value);
     }
 
-    protected function firstName(): Attribute
+    public function posts(): HasMany
     {
-        return Attribute::make(get: function (): string {
-            if ($this->isArtiste() || $this->isMember()) {
-                $arr = explode(' ', $this->name);
-    
-                return $arr[0];
-            }
-            return '';
-        });
-    }
-
-    protected function lastName(): Attribute
-    {
-        return Attribute::make(get: function (): string {
-            if ($this->isArtiste() || $this->isMember()) {
-                $arr = explode(' ', $this->name);
-    
-                return $arr[count($arr) - 1];
-            }
-            return '';
-        });
+        return $this->hasMany(Post::class, 'user_id');
     }
 }
